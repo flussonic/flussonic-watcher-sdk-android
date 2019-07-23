@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">erlyvideo</string>
+
+    <string name="start_appomart">Demo application\n created at Appomart</string>
+
+    <string name="error_message1">Не удалось\n авторизироваться. Проверьте введенные данные</string>
+    <string name="error_message2">Проверьте подключение к сети Интернет и попробуйте еще раз</string>
+    <string name="error_message3">Не вся поля заполнены</string>
+
+    <string name="server_hint">Идентификатор сервера</string>
+    <string name="login_hint">Логин</string>
+    <string name="password_hint">Пароль</string>
+    <string name="btn_login">Войти</string>
+
+    <string name="title_login">Авторизация</string>
+    <string name="title_list">Доступные камеры</string>
+    <string name="title_cam">Камера</string>
+
+    <string name="cam_online">online</string>
+    <string name="cam_offline">offline</string>
+</resources>
