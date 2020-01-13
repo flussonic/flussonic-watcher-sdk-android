@@ -1,4 +1,4 @@
-package com.appomart.erlyvideo_android.Common;
+package com.erlyvideo.sample.Common;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.appomart.erlyvideo_android.CamsActivity;
-import com.appomart.erlyvideo_android.LoginActivity;
-import com.appomart.erlyvideo_android.R;
+import com.erlyvideo.sample.CamsActivity;
+import com.erlyvideo.sample.LoginActivity;
+import com.erlyvideo.sample.R;
 
 public class NavigationTab {
     private ImageView exit;

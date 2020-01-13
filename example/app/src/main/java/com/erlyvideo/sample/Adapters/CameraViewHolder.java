@@ -1,14 +1,14 @@
-package com.appomart.erlyvideo_android.Adapters;
+package com.erlyvideo.sample.Adapters;
 
 import android.content.Context;
-import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.TextView;
 
-import com.appomart.erlyvideo_android.R;
+import com.erlyvideo.sample.R;
 
 import flussonic.watcher.sdk.domain.pojo.Camera;
 import flussonic.watcher.sdk.presentation.thumbnail.FlussonicThumbnailView;

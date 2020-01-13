@@ -1,10 +1,10 @@
-package com.appomart.erlyvideo_android.Control;
+package com.erlyvideo.sample.Control;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
-import com.appomart.erlyvideo_android.Api.ServerApi;
-import com.appomart.erlyvideo_android.BuildConfig;
-import com.appomart.erlyvideo_android.Models.FlussonicSampleAdapterFactory;
+import com.erlyvideo.sample.Api.ServerApi;
+import com.erlyvideo.sample.BuildConfig;
+import com.erlyvideo.sample.Models.FlussonicSampleAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

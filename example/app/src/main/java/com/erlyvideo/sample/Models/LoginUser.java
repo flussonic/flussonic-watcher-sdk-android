@@ -1,4 +1,4 @@
-package com.appomart.erlyvideo_android.Models;
+package com.erlyvideo.sample.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.appomart.erlyvideo_android">
+    package="com.erlyvideo.sample">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.appomart.erlyvideo_android.StartActivity"
+            android:name="com.erlyvideo.sample.StartActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:noHistory="true">
@@ -25,13 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.appomart.erlyvideo_android.LoginActivity"
+        <activity android:name="com.erlyvideo.sample.LoginActivity"
             android:screenOrientation="portrait"
             android:noHistory="true"/>
-        <activity android:name="com.appomart.erlyvideo_android.CamsActivity"
+        <activity android:name="com.erlyvideo.sample.CamsActivity"
             android:screenOrientation="portrait"
             android:noHistory="true"/>
-        <activity android:name="com.appomart.erlyvideo_android.CameraActivity"
+        <activity android:name="com.erlyvideo.sample.CameraActivity"
             android:screenOrientation="portrait"
             android:noHistory="true"/>
     </application>

@@ -1,4 +1,4 @@
-package com.appomart.erlyvideo_android;
+package com.erlyvideo.sample;
 
 import android.app.Activity;
 import android.content.Intent;

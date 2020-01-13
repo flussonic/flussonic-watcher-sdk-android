@@ -1,4 +1,4 @@
-package com.appomart.erlyvideo_android;
+package com.erlyvideo.sample;
 
 import org.junit.Test;
 
