@@ -1,4 +1,4 @@
-package com.appomart.erlyvideo_android;
+package com.erlyvideo.sample;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.appomart.erlyvideo_android", appContext.getPackageName());
+        assertEquals("com.erlyvideo.sample", appContext.getPackageName());
     }
 }

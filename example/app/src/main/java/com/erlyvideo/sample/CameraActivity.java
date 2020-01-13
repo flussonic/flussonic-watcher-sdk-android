@@ -1,4 +1,4 @@
-package com.appomart.erlyvideo_android;
+package com.erlyvideo.sample;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.appomart.erlyvideo_android.Common.NavigationTab;
+import com.erlyvideo.sample.Common.NavigationTab;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -1,10 +1,10 @@
-package com.appomart.erlyvideo_android;
+package com.erlyvideo.sample;
 
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.appomart.erlyvideo_android.Common.NavigationTab;
+import com.erlyvideo.sample.Common.NavigationTab;
 
 public class MainActivity extends AppCompatActivity {
 

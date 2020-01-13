@@ -1,4 +1,4 @@
-package com.appomart.erlyvideo_android.Models;
+package com.erlyvideo.sample.Models;
 
 import com.google.gson.TypeAdapterFactory;
 import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;

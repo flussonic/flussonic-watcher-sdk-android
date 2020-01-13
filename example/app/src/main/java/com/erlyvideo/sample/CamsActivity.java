@@ -1,4 +1,4 @@
-package com.appomart.erlyvideo_android;
+package com.erlyvideo.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.appomart.erlyvideo_android.Adapters.CameraViewHolder;
-import com.appomart.erlyvideo_android.Adapters.CamsListAdapter;
-import com.appomart.erlyvideo_android.Api.ServerApi;
-import com.appomart.erlyvideo_android.Common.NavigationTab;
-import com.appomart.erlyvideo_android.Control.ServerConnect;
-import com.appomart.erlyvideo_android.Models.User;
+import com.erlyvideo.sample.Adapters.CameraViewHolder;
+import com.erlyvideo.sample.Adapters.CamsListAdapter;
+import com.erlyvideo.sample.Api.ServerApi;
+import com.erlyvideo.sample.Common.NavigationTab;
+import com.erlyvideo.sample.Control.ServerConnect;
+import com.erlyvideo.sample.Models.User;
 
 import java.util.ArrayList;
 import java.util.List;

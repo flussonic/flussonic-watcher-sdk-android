@@ -1,4 +1,4 @@
-package com.appomart.erlyvideo_android;
+package com.erlyvideo.sample;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.appomart.erlyvideo_android.Api.ServerApi;
-import com.appomart.erlyvideo_android.Common.NavigationTab;
-import com.appomart.erlyvideo_android.Control.ServerConnect;
-import com.appomart.erlyvideo_android.Models.User;
+import com.erlyvideo.sample.Api.ServerApi;
+import com.erlyvideo.sample.Common.NavigationTab;
+import com.erlyvideo.sample.Control.ServerConnect;
+import com.erlyvideo.sample.Models.User;
 
 import flussonic.watcher.sdk.domain.utils.RxUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
