@@ -1,6 +1,6 @@
 package com.appomart.erlyvideo_android.Api;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.appomart.erlyvideo_android.Models.LoginUser;
 

@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.widget.ContentLoadingProgressBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.widget.ContentLoadingProgressBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -59,8 +59,8 @@ public class LoginActivity extends AppCompatActivity {
         user = new User();
 
         //server.setText("test");
-        login.setText("Appomart");
-        password.setText("fxtWrvC38Y");
+        login.setText("demo");
+        password.setText("demo");
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override

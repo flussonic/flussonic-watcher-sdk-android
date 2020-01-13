@@ -1,6 +1,6 @@
 package com.appomart.erlyvideo_android.Control;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.appomart.erlyvideo_android.Api.ServerApi;
 import com.appomart.erlyvideo_android.BuildConfig;
