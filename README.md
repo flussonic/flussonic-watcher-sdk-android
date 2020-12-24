@@ -13,10 +13,23 @@
 ### Add dependencies to `android/app/build.gradle`:
 
 ```groovy
-// glideCompiler annotationProcessor needed for LibraryGlideModule integration
-annotationProcessor "com.github.bumptech.glide:compiler:4.10.0"
+android {
+  /// your other options
 
-implementation 'com.flussonic:watcher-sdk:2.0.0'
+  packagingOptions {
+    pickFirst 'lib/**/libcrypto.so'
+    pickFirst 'lib/**/libssl.so'
+    pickFirst 'lib/**/libswscale.so'
+    pickFirst 'lib/**/libswresample.so'
+    pickFirst 'lib/**/libavcodec.so'
+    pickFirst 'lib/**/libavformat.so'
+    pickFirst 'lib/**/libavutil.so'
+  }
+}
+// glideCompiler annotationProcessor needed for LibraryGlideModule integration
+annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
+
+implementation 'com.flussonic:watcher-sdk:2.3.0'
 ```
 
 ### Create stub GlideModule for enabling software decoding of mp4 thumbnails:
@@ -30,6 +43,6 @@ public class GlideStubModule extends AppGlideModule {
 }
 ```
 
-##### Androidx support has been added since 2.0.0 version. For integration without androidx you could use an older version of Flussonic SDK, for example: `com.flussonic:watcher-sdk:1.7`.
+##### Androidx support has been added since 2.0.0 version. For integration without androidx you could use legacy version of Flussonic Watcher SDK, for example: `com.flussonic:watcher-sdk:1.7`.
 
 ### Information about usage and documentation [here](https://flussonic.com/doc/watcher/sdk-android/integration-of-flussonic-watcher-sdk-into-apps-for-android)
