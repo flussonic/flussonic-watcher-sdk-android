@@ -3,7 +3,11 @@ package com.erlyvideo.sample;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.erlyvideo.sample.Common.NavigationTab;
@@ -26,7 +30,7 @@ import flussonic.watcher.sdk.presentation.watcher.FlussonicWatcherView;
 import timber.log.Timber;
 
 
-public class CameraActivity extends AppCompatActivity implements FlussonicCollapseExpandTimelineListener {
+public class CameraActivity extends AppCompatActivity implements FlussonicCollapseExpandTimelineListener, FlussonicDownloadRequestListener, FlussonicBufferingListener, FlussonicUpdateProgressEventListener, FlussonicWatcherView.FlussonicExoPlayerErrorListener {
 
     public static final String SERVER = "https://cloud.vsaas.io";
 
@@ -112,74 +116,31 @@ public class CameraActivity extends AppCompatActivity implements FlussonicCollap
         // Параметр allowDownload можно задать как в xml-разметке, так и в коде
 
         // allow download -- разрешить загрузку части архива
-        //flussonicWatcherView.setAllowDownload(Settings.allowDownload(this));
+//        flussonicWatcherView.setAllowDownload(Settings.allowDownload(this));
 
         flussonicWatcherView.setStartPosition(startPosition);
 
+//        flussonicWatcherView.setToolbarHeight(toolbarHeight);
+        flussonicWatcherView.disableAudio(true);
         // Установка слушателя, чтобы запускать анимацию тулбара синхронно анимации таймлайна
         flussonicWatcherView.setCollapseExpandTimelineListener(this);
-        //flussonicWatcherView.setToolbarHeight(toolbarHeight);
+
+        // Установка слушателя на события буферизации
+        flussonicWatcherView.setBufferingListener(this);
+
+        // Установка слушателя запроса на сохранения части архива
+        flussonicWatcherView.setDownloadRequestListener(this);
+
+        // Установка слушателя, который вызывается раз в секунду, в параметре передается текущее
+        // время проигрывания, UTC, в секундах
+        flussonicWatcherView.setUpdateProgressEventListener(this);
+
+        flussonicWatcherView.setExoPlayerErrorListener(this);
 
         // Инициализация параметров подключения к камере
         flussonicWatcherView.initialize(this);
         setUrl(false);
-
-        // Примеры вызовов: см. onOptionsItemSelected, onLowMemory
-
-        // Установка слушателя на события буферизации
-        flussonicWatcherView.setBufferingListener(new FlussonicBufferingListener() {
-
-            @Override
-            public void onBufferingStart() {
-                Timber.d("onBufferingStart");
-            }
-
-            @Override
-            public void onBufferingStop() {
-                Timber.d("onBufferingStop");
-            }
-        });
-
-        // Установка слушателя запроса на сохранения части архива
-        //noinspection Convert2Lambda
-        flussonicWatcherView.setDownloadRequestListener(new FlussonicDownloadRequestListener() {
-
-            @Override
-            public void onDownloadRequest(long from, long to) {
-                Timber.d("onDownloadRequest: from %d to %d", from, to);
-                String fromString = CalendarUtils.toString(from, CalendarUtils.DATE_TIME_PATTERN);
-                String toString = CalendarUtils.toString(to, CalendarUtils.DATE_TIME_PATTERN);
-            }
-        });
-
-        // Установка слушателя, который вызывается раз в секунду, в параметре передается текущее
-        // время проигрывания, UTC, в секундах
-        //noinspection Convert2Lambda
-        flussonicWatcherView.setUpdateProgressEventListener(new FlussonicUpdateProgressEventListener() {
-
-            @Override
-            public void onUpdateProgress(@NonNull UpdateProgressEvent event) {
-                // event.currentUtcInSeconds() is the same as flussonicWatcherView.getCurrentUtcInSeconds()
-                // event.playbackStatus() is the same as flussonicWatcherView.getPlaybackStatus()
-                // event.speed() is the same as flussonicWatcherView.getSpeed()
-                List<Track> tracks = flussonicWatcherView.getAvailableTracks();
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < tracks.size(); i++) {
-                    sb.append(tracks.get(i).trackId());
-                    if (i < tracks.size() - 1) {
-                        sb.append(", ");
-                    }
-                }
-                String tracksString = sb.toString();
-                Track currentTrack = flussonicWatcherView.getCurrentTrack();
-
-                /*textViewUtc.setText(String.valueOf(event.currentUtcInSeconds()));
-                textViewStatus.setText(String.valueOf(event.playbackStatus()));
-                textViewSpeed.setText(String.format(Locale.US, "%.1f", event.speed()));
-                textViewTracks.setText(tracksString.isEmpty() ? "NO" : tracksString);
-                textViewCurrentTrack.setText(currentTrack == null ? "NO" : currentTrack.trackId());*/
-            }
-        });
+        flussonicWatcherView.enableTimelineMarkersV2(true);
     }
 
     private void setUrl(boolean setStartPositionFromUrl) {
@@ -201,6 +162,11 @@ public class CameraActivity extends AppCompatActivity implements FlussonicCollap
         }
     }
 
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();
@@ -211,22 +177,40 @@ public class CameraActivity extends AppCompatActivity implements FlussonicCollap
 
     @Override
     public void collapseToolbar(int i) {
-
+        Timber.d("collapseToolbar");
     }
 
     @Override
     public void expandToolbar(int i) {
-
+        Timber.d("expandToolbar");
     }
 
     @Override
     public void showToolbar(int i) {
-
+        Timber.d("showToolbar");
     }
 
     @Override
     public void hideToolbar(int i) {
+        Timber.d("hideToolbar");
+    }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        overridePendingTransition(0, 0);
     }
 
     @Override
@@ -242,5 +226,57 @@ public class CameraActivity extends AppCompatActivity implements FlussonicCollap
         intent.putExtra("Password", password);
         this.startActivity(intent);
 
+    }
+
+    @Override
+    public void onDownloadRequest(long from, long to) {
+        String fromString = CalendarUtils.toString(from, CalendarUtils.DATE_TIME_PATTERN);
+        String toString = CalendarUtils.toString(to, CalendarUtils.DATE_TIME_PATTERN);
+        String msg = String.format("onDownloadRequest: from %s to %s", fromString, toString);
+        Timber.d(msg);
+        showToast(msg);
+    }
+
+    @Override
+    public void onBufferingStart() {
+        Timber.d("onBufferingStart");
+    }
+
+    @Override
+    public void onBufferingStop() {
+        Timber.d("onBufferingStop");
+    }
+
+    @Override
+    public void onUpdateProgress(@NonNull UpdateProgressEvent event) {
+        // event.currentUtcInSeconds() is the same as flussonicWatcherView.getCurrentUtcInSeconds()
+        // event.playbackStatus() is the same as flussonicWatcherView.getPlaybackStatus()
+        // event.speed() is the same as flussonicWatcherView.getSpeed()
+        List<Track> tracks = flussonicWatcherView.getAvailableTracks();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tracks.size(); i++) {
+            sb.append(tracks.get(i).trackId());
+            if (i < tracks.size() - 1) {
+                sb.append(", ");
+            }
+        }
+        String tracksString = sb.toString();
+        Track currentTrack = flussonicWatcherView.getCurrentTrack();
+        Timber.d("update progress: %s %s %s %s %s",
+                String.valueOf(event.currentUtcInSeconds()),
+                String.valueOf(event.playbackStatus()), 
+                String.format(Locale.US, "%.1f", event.speed()),
+                 tracksString.isEmpty() ? "NO" : tracksString, 
+                 currentTrack == null ? "NO" : currentTrack.trackId());
+                /*textViewUtc.setText(String.valueOf(event.currentUtcInSeconds()));
+                textViewStatus.setText(String.valueOf(event.playbackStatus()));
+                textViewSpeed.setText(String.format(Locale.US, "%.1f", event.speed()));
+                textViewTracks.setText(tracksString.isEmpty() ? "NO" : tracksString);
+                textViewCurrentTrack.setText(currentTrack == null ? "NO" : currentTrack.trackId());*/
+    }
+
+    @Override
+    public void onExoPlayerError(String code, String message, String url) {
+        Timber.e("onExoPlayerError code: %s, message: %s, player_url: %s", code, message, url);
     }
 }
