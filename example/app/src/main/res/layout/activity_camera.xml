@@ -13,12 +13,19 @@
         android:layout_height="50dp"
         layout="@layout/fragment_navigation"
         android:layout_alignParentTop="true"/>
-
-    <flussonic.watcher.sdk.presentation.watcher.FlussonicWatcherView
-        android:id="@+id/watcher_view"
+        
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:allowDownload="true"
-        android:layout_below="@+id/navigation"/>
+        android:layout_below="@+id/navigation">
+
+      <flussonic.watcher.sdk.presentation.watcher.FlussonicWatcherView
+          android:id="@+id/watcher_view"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:allowDownload="true"
+          />
+    </FrameLayout>
 
 </RelativeLayout>

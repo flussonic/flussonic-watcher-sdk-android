@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 
 import com.erlyvideo.sample.Api.ServerApi;
 import com.erlyvideo.sample.BuildConfig;
-import com.erlyvideo.sample.Models.FlussonicSampleAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -67,7 +66,6 @@ public class ServerConnect {
         GsonBuilder gsonBuilder = new GsonBuilder()
                 .serializeNulls()
                 .disableHtmlEscaping()
-                .registerTypeAdapterFactory(FlussonicSampleAdapterFactory.create())
                 .registerTypeAdapterFactory(FlussonicSdkAdapterFactory.create());
         if (BuildConfig.DEBUG) {
             gsonBuilder.setPrettyPrinting();
