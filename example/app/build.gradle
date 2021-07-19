@@ -69,6 +69,6 @@ dependencies {
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.1.0'
     annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.7'
     annotationProcessor 'androidx.annotation:annotation:1.1.0'
-    implementation 'com.flussonic:watcher-sdk:2.4.1'
+    implementation 'com.flussonic:watcher-sdk:2.5.0'
      
 }
