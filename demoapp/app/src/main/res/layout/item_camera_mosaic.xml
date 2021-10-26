@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/camera_item_margin"
+    android:layout_marginLeft="@dimen/camera_item_margin"
+    android:layout_marginRight="@dimen/camera_item_margin"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/camera_item_background"
+    app:cardCornerRadius="@dimen/camera_item_corner_radius">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <flussonic.watcher.sdk.presentation.watcher.FlussonicMosaicView
+            android:id="@+id/camera_mosaic"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal" />
+
+        <FrameLayout
+            android:id="@+id/camera_preview_error"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@color/camera_item_error_background"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/fs_broken_camera_large"
+                tools:ignore="ContentDescription" />
+
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginTop="-32dp"
+            android:background="@color/mdtp_transparent_black"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/camera_title"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/camera_item_header_margin"
+                android:layout_marginStart="@dimen/camera_item_header_margin"
+                android:gravity="center_vertical"
+                android:textColor="@color/camera_item_text"
+                tools:text="camera title" />
+
+            <TextView
+                android:id="@+id/camera_status"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginLeft="@dimen/camera_item_header_margin"
+                android:layout_marginStart="@dimen/camera_item_header_margin"
+                android:gravity="center_vertical"
+                android:textColor="@color/camera_item_text"
+                android:drawablePadding="@dimen/camera_item_status_text_icon_padding"
+                tools:text="camera status" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/mosaic_quality_btn"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/fs_margin_quarter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:visibility="gone"
+                tools:src="@drawable/fs_sd"
+                tools:visibility="visible"
+                android:layout_marginRight="@dimen/fs_margin_quarter" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/mosaic_mute_btn"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/fs_margin_quarter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/fs_ic_mute"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_marginRight="@dimen/fs_margin_quarter" />
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

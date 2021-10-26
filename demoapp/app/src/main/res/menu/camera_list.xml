@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/start_playing_from_start_position"
+        android:checkable="true"
+        android:title="@string/start_playing_from_start_position"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/start_position"
+        android:title="@string/start_position"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/allow_download"
+        android:checkable="true"
+        android:title="@string/allow_download"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/use_mosaiks"
+        android:checkable="true"
+        android:title="@string/use_mosaiks"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/preview_updating"
+        android:checkable="true"
+        android:title="@string/preview_updating"
+        app:showAsAction="never" />
+
+</menu>

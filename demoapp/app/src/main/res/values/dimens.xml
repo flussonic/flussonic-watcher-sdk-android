@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="camera_list_top_margin">8dp</dimen>
+    <dimen name="camera_item_margin">8dp</dimen>
+    <dimen name="camera_item_corner_radius">4dp</dimen>
+    <dimen name="camera_item_preview_height">172dp</dimen>
+    <dimen name="camera_item_header_height">48dp</dimen>
+    <dimen name="camera_item_header_margin">16dp</dimen>
+    <dimen name="camera_item_status_text_icon_padding">8dp</dimen>
+    <dimen name="camera_item_status_indicator_radius">4dp</dimen>
+    <dimen name="camera_item_status_indicator_size">8dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+</resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TableRow>
+
+        <TextView
+            style="@style/InfoStyle"
+            android:text="@string/utc_is" />
+
+        <TextView
+            android:id="@+id/text_view_utc"
+            style="@style/InfoStyle" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            style="@style/InfoStyle"
+            android:text="@string/status_is" />
+
+        <TextView
+            android:id="@+id/text_view_status"
+            style="@style/InfoStyle" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            style="@style/InfoStyle"
+            android:text="@string/speed_is" />
+
+        <TextView
+            android:id="@+id/text_view_speed"
+            style="@style/InfoStyle" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            style="@style/InfoStyle"
+            android:text="@string/tracks_are" />
+
+        <TextView
+            android:id="@+id/text_view_tracks"
+            style="@style/InfoStyle" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            style="@style/InfoStyle"
+            android:text="@string/current_track_is" />
+
+        <TextView
+            android:id="@+id/text_view_current_track"
+            style="@style/InfoStyle" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            style="@style/InfoStyle"
+            android:text="@string/start_position_is" />
+
+        <TextView
+            android:id="@+id/text_view_start_position"
+            style="@style/InfoStyle" />
+    </TableRow>
+</TableLayout>

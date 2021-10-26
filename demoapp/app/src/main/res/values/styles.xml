@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:override="true">
+    <style name="CalendarDatePickerDialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorForeground">@android:color/darker_gray</item>
+        <item name="android:textColorPrimary">#000000</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:datePickerDialogTheme" tools:targetApi="lollipop">@style/CalendarDatePickerDialog</item>
+        <item name="android:timePickerDialogTheme" tools:targetApi="lollipop">@style/CalendarDatePickerDialog</item>
+        <item name="android:alertDialogTheme" tools:targetApi="lollipop">@style/CalendarDatePickerDialog</item>
+        <item name="android:alertDialogStyle">@style/CalendarDatePickerDialog</item>
+
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">@android:color/darker_gray</item>
+
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@android:color/primary_text_dark</item>
+        <item name="android:editTextStyle">@style/AppEditTextStyle</item>
+        <item name="editTextStyle">@style/AppEditTextStyle</item> <!-- For compatibility with the support library -->
+        <item name="android:editTextBackground">@android:color/transparent</item>
+        <item name="popupMenuStyle">@style/MyPopupMenu</item>
+
+        <item name="android:popupMenuStyle">@style/MyPopupMenu</item>
+        <item name="android:popupBackground">@color/colorPrimary</item>
+        <item name="android:itemBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="MyPopupMenu" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:colorBackground">@color/colorPrimary</item>
+        <item name="android:tint">@color/colorAccent</item>
+        <item name="android:textColor">@color/camera_item_text</item>
+
+    </style>
+    <style name="AppEditTextStyle" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="InfoStyle">
+        <item name="android:textAppearance">@style/InfoText</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">5dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+</resources>

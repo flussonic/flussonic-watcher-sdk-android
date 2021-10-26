@@ -1,0 +1,168 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    //mavenLocal()
+    maven { url 'https://flussonic-watcher-mobile-sdk.s3.eu-central-1.amazonaws.com/android/watcher-sdk/release/' }
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def formattedDate = new Date().format("yyyy.MM.dd")
+            outputFileName = "${APPLICATION_NAME}_${formattedDate}_v${VERSION_NAME}(${variant.versionCode})_${variant.name}.apk"
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            variant.assemble.doLast {
+                if (variant.mappingFile && variant.mappingFile.exists()) {
+                    copy {
+                        from variant.mappingFile
+                        into output.outputFile.parent
+                        def formattedDate = new Date().format("yyyy.MM.dd")
+                        rename { String fileName ->
+                            "mapping_${APPLICATION_NAME}_${formattedDate}_v${VERSION_NAME}(${variant.versionCode})_${variant.name}.txt"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        multiDexEnabled true
+
+        applicationId "flussonic.watcher.sample"
+
+        minSdkVersion Integer.parseInt(MIN_SDK_VERSION)
+        targetSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
+        versionCode Integer.parseInt(VERSION_CODE)
+        versionName VERSION_NAME
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("debug.keystore")
+            // 20:FB:F4:CD:2E:1B:66:22:7A:BA:68:27:91:AB:5E:AE:E0:FE:FF:97
+        }
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix '-DEBUG'
+            debuggable true
+            jniDebuggable true
+            renderscriptDebuggable true
+            signingConfig signingConfigs.debug
+
+            shrinkResources false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "ENABLE_MINIFY", "${minifyEnabled}"
+
+            buildConfigField "boolean", "PRINT_LOGS_TO_LOGCAT", "true"
+        }
+        release {
+            // Caution! In production, you need to generate your own keystore file.
+            // see https://reactnative.dev/docs/signed-apk-android.
+            signingConfig signingConfigs.debug
+            versionNameSuffix ''
+            debuggable false
+            
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "ENABLE_MINIFY", "${minifyEnabled}"
+
+            buildConfigField "boolean", "PRINT_LOGS_TO_LOGCAT", "true"
+        }
+    }
+
+    flavorDimensions "server"
+    productFlavors {
+        demo {
+            buildConfigField "String", "SERVER", getCredentials("SERVER", "\"https://cloud.vsaas.io\"")
+            buildConfigField "String", "LOGIN", getCredentials("LOGIN", "\"demo\"")
+            buildConfigField "String", "PASSWORD", getCredentials("PASSWORD", "\"demo\"")
+        }
+    }
+    
+    packagingOptions {
+        pickFirst 'lib/**/libc++_shared.so'
+        pickFirst 'lib/**/libcrypto.so'
+        pickFirst 'lib/**/libssl.so'
+        pickFirst 'lib/**/libswscale.so'
+        pickFirst 'lib/**/libswresample.so'
+        pickFirst 'lib/**/libavcodec.so'
+        pickFirst 'lib/**/libavformat.so'
+        pickFirst 'lib/**/libavutil.so'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+def getCredentials(String propertyKey, String defaultValue) {
+    String propertyValue = getPropertyValue("auth.properties", propertyKey)
+    if (!propertyValue || propertyValue.isEmpty()) {
+        return defaultValue
+    }
+    return propertyValue
+}
+
+def getSecret(String propertyKey) {
+    String propertyValue = getPropertyValue("secret.properties", propertyKey)
+    if (!propertyValue || propertyValue.isEmpty()) {
+        throw new InvalidUserDataException("You should define KEYSTORE_FILE, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD in secret.properties.")
+    }
+    return propertyValue
+}
+
+def getPropertyValue(String fileName, String propertyKey) {
+    try {
+        Properties properties = new Properties()
+        file(fileName).withInputStream { properties.load(it) }
+        return properties[propertyKey]
+    } catch (ignored) {
+        return null
+    }
+}
+
+dependencies {
+    implementation libraries.multidex
+    
+    testImplementation libraries.testRunner
+    androidTestImplementation libraries.testRunner
+    androidTestImplementation libraries.espressoCore
+
+    implementation libraries.androidxV4
+    implementation libraries.androidxAppCompat
+    
+    implementation libraries.androidxDesign
+    implementation libraries.androidxCardView
+    
+    debugImplementation libraries.leakCanary
+    releaseImplementation libraries.leakCanaryNoOp
+
+    compileOnly libraries.autoValueGson
+    annotationProcessor libraries.autoValueGson
+    annotationProcessor libraries.lifecycleCompiler
+    annotationProcessor libraries.autoValueParcel
+    annotationProcessor libraries.androidxAnnotation
+    // glideCompiler annotationProcessor needed for LibraryGlideModule integration
+    annotationProcessor libraries.glideCompiler
+    
+    implementation "com.flussonic:watcher-sdk:${VERSION_NAME}"
+}
