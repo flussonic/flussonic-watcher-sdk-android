@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/camera_item_margin"
+    android:layout_marginLeft="@dimen/camera_item_margin"
+    android:layout_marginRight="@dimen/camera_item_margin"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/camera_item_background"
+    app:cardCornerRadius="@dimen/camera_item_corner_radius">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/camera_title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/camera_item_header_height"
+            android:layout_marginStart="@dimen/camera_item_header_margin"
+            android:gravity="center_vertical"
+            android:textColor="@color/camera_item_text"
+            tools:text="camera title" />
+
+        <flussonic.watcher.sdk.presentation.thumbnail.FlussonicThumbnailView
+            android:id="@+id/camera_preview"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/camera_item_preview_height" />
+
+        <FrameLayout
+            android:id="@+id/camera_preview_error"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/camera_item_preview_height"
+            android:background="@color/camera_item_error_background"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/fs_broken_camera_large"
+                tools:ignore="ContentDescription" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/camera_status"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/camera_item_header_height"
+            android:layout_marginStart="@dimen/camera_item_header_margin"
+            android:gravity="center_vertical"
+            android:textColor="@color/camera_item_text"
+            android:drawablePadding="@dimen/camera_item_status_text_icon_padding"
+            tools:text="camera status" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

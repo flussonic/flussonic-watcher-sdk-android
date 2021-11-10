@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flussonic Watcher Sample</string>
+    <string name="active">Active</string>
+    <string name="inactive">Inactive</string>
+    <string name="error">Error</string>
+    <string name="buffering">Buffering&#8230;</string>
+    <string name="capture_screenshot">Take camera screenshot</string>
+    <string name="write_storage_permission_is_not_granted">Write Storage permission is not granted</string>
+    <string name="screenshot_saved">Screenshot saved as %s</string>
+    <string name="failed_to_save_screenshot">Failed to save screenshot</string>
+    <string name="please_wait">Please wait</string>
+    <string name="download_video_request">Download video request: from %s to %s"</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="seek">Seek</string>
+    <string name="clear_cache">Clear cache</string>
+    <string name="prev_camera">Prev camera</string>
+    <string name="next_camera">Next camera</string>
+    <string name="start_playing_from_start_position">Start playing from start position</string>
+    <string name="select_start_position">Select start position</string>
+    <string name="start_position">Start position %s</string>
+    <string name="allow_download">Allow download</string>
+    <string name="utc_is">UTC:</string>
+    <string name="status_is">Status:</string>
+    <string name="speed_is">Speed:</string>
+    <string name="tracks_are">Tracks:</string>
+    <string name="current_track_is">Current:</string>
+    <string name="start_position_is">Start position:</string>
+    <string name="use_mosaiks">Use mosaiks:</string>
+    <string name="preview_updating">Preview updating:</string>
+</resources>

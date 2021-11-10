@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/capture_screenshot"
+        android:icon="@drawable/ic_photo_camera"
+        android:title="@string/capture_screenshot"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/pause"
+        android:title="@string/pause"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/resume"
+        android:title="@string/resume"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/seek"
+        android:title="@string/seek"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/allow_download"
+        android:checkable="true"
+        android:title="@string/allow_download"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/clear_cache"
+        android:title="@string/clear_cache"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/prev_camera"
+        android:title="@string/prev_camera"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/next_camera"
+        android:title="@string/next_camera"
+        app:showAsAction="never" />
+
+</menu>

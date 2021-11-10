@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#f87878</color>
+    <color name="colorPrimaryDark">#555555</color>
+    <color name="colorAccent">#05abdf</color>
+
+    <color name="camera_item_background">#31353D</color>
+    <color name="camera_item_error_background">#FF252A33</color>
+    <color name="camera_item_text">@android:color/white</color>
+    <color name="camera_status_ok">#21D921</color>
+    <color name="camera_status_error">#F2183D</color>
+</resources>
