@@ -29,4 +29,6 @@
     <string name="start_position_is">Start position:</string>
     <string name="use_mosaiks">Use mosaiks:</string>
     <string name="preview_updating">Preview updating:</string>
+    <string name="use_cameras">Use cameras:</string>
+    <string name="use_streams">Use streams:</string>
 </resources>

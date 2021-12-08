@@ -28,13 +28,23 @@ class CameraMosaicAdapter extends AbstractCameraAdapter<CameraMosaicViewHolder> 
         this.activity = activity;
     }
 
+    CameraMosaicAdapter(@NonNull List<Camera> items,
+                        @NonNull AbstractCameraViewHolder.OnCameraClickListener listener, BaseActivity activity) {
+        super(items, listener);
+        this.activity = activity;
+    }
+
     @NonNull
     @Override
     public CameraMosaicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context ctx = parent.getContext();
         View view = LayoutInflater.from(ctx)
                 .inflate(R.layout.item_camera_mosaic, parent, false);
-        return new CameraMosaicViewHolder(view, session, onCameraClickListener, activity);
+        if(session != null) {
+            return new CameraMosaicViewHolder(view, session, onCameraClickListener, activity);
+        } else {
+            return new CameraMosaicViewHolder(view, onCameraClickListener, activity);
+        }
     }
 
     @Override

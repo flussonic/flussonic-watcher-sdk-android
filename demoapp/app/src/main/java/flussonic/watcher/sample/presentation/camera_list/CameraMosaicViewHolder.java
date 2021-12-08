@@ -28,6 +28,7 @@ import flussonic.watcher.sdk.presentation.core.FlussonicControlsVisibilityListen
 import flussonic.watcher.sdk.presentation.core.listeners.FlussonicBufferingListener;
 import flussonic.watcher.sdk.presentation.core.listeners.FlussonicUpdateProgressEventListener;
 import flussonic.watcher.sdk.presentation.watcher.FlussonicMosaicView;
+import okhttp3.HttpUrl;
 import timber.log.Timber;
 
 class CameraMosaicViewHolder extends AbstractCameraViewHolder implements FlussonicBufferingListener, FlussonicUpdateProgressEventListener, FlussonicMosaicView.FlussonicExoPlayerErrorListener, FlussonicControlsVisibilityListener {
@@ -50,6 +51,11 @@ class CameraMosaicViewHolder extends AbstractCameraViewHolder implements Flusson
     CameraMosaicViewHolder(View itemView, String session, @NonNull OnCameraClickListener listener, BaseActivity activity) {
         super(itemView, listener);
         this.session = session;
+        this.activity = activity;
+    }
+
+    CameraMosaicViewHolder(View itemView, @NonNull OnCameraClickListener listener, BaseActivity activity) {
+        super(itemView, listener);
         this.activity = activity;
     }
 
@@ -215,14 +221,25 @@ class CameraMosaicViewHolder extends AbstractCameraViewHolder implements Flusson
 
     private void setUrl() {
         try {
-            URL serverUrl = new URL(BuildConfig.SERVER);
-            String urlString = String.format(Locale.US, "%s://%s@%s/%s%s",
-                    serverUrl.getProtocol(),
-                    session,
-                    serverUrl.getAuthority(),
-                    camera.name(),
-                    /*setStartPositionFromUrl ? "?from=" + startPosition : */"");
-            flussonicMosaicView.setUrl(urlString);
+            if(session != null) {
+                URL serverUrl = new URL(BuildConfig.SERVER);
+                String urlString = String.format(Locale.US, "%s://%s@%s/%s",
+                        serverUrl.getProtocol(),
+                        session,
+                        serverUrl.getAuthority(),
+                        camera.name());
+                flussonicMosaicView.setUrl(urlString);
+            } else {
+                URL url = new HttpUrl.Builder()
+                        .scheme("https")
+                        .host(camera.server())
+                        .port(camera.httpsPort())
+                        .addPathSegments(camera.name())
+                        .addQueryParameter("token", camera.token())
+                        .build().url();
+                String pseudoUrl = url.toString();
+                flussonicMosaicView.setStreamUrl(pseudoUrl);
+            }
         } catch (MalformedURLException e) {
             throw new RuntimeException("failed to set url", e);
         }

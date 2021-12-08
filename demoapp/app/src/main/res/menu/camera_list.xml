@@ -17,14 +17,30 @@
         android:title="@string/allow_download"
         app:showAsAction="never" />
     <item
-        android:id="@+id/use_mosaiks"
-        android:checkable="true"
-        android:title="@string/use_mosaiks"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/preview_updating"
         android:checkable="true"
         android:title="@string/preview_updating"
         app:showAsAction="never" />
-
+    <group
+        android:id="@+id/itemType"
+        android:checkableBehavior="single"
+        android:enabled="true"
+        android:menuCategory="container"
+        android:visible="true" >
+        <item
+            android:id="@+id/use_cameras"
+            android:checkable="true"
+            android:title="@string/use_cameras"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/use_mosaiks"
+            android:checkable="true"
+            android:title="@string/use_mosaiks"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/use_streams"
+            android:checkable="true"
+            android:title="@string/use_streams"
+            app:showAsAction="never" />
+    </group>
 </menu>

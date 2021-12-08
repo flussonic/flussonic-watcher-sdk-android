@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 repositories {
     //mavenLocal()
-    maven { url 'https://flussonic-watcher-mobile-sdk.s3.eu-central-1.amazonaws.com/android/watcher-sdk/release/' }
+    maven { url 'https://front-ci.erlyvideo.ru/dist/watcher-sdk/android/release/' }
 }
 
 android {
