@@ -141,6 +141,7 @@ public class CameraListActivity extends BaseActivity
             recyclerView.setAdapter(null);
         }
         layoutManager = new LinearLayoutManager(this);
+        int itemsCount = Math.min(5, cameras.size());
         switch(cameraTypes) {
             case "cameras":
                 itemType = cameraTypes;
@@ -150,12 +151,12 @@ public class CameraListActivity extends BaseActivity
             case "mosaics":
                 itemType = cameraTypes;
                 init();
-                adapter.setItems(cameras.subList(0,5));
+                adapter.setItems(cameras.subList(0,itemsCount));
                 break;
             case "streams":
                 itemType = cameraTypes;
                 init();
-                adapter.setItems(cameras.subList(0,3));
+                adapter.setItems(cameras.subList(0,itemsCount));
                 break;
         }
     }

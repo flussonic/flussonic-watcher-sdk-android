@@ -42,6 +42,7 @@ import flussonic.watcher.sample.presentation.core.BaseActivity;
 import flussonic.watcher.sample.presentation.core.Settings;
 import flussonic.watcher.sdk.domain.pojo.Camera;
 import flussonic.watcher.sdk.domain.pojo.PlaybackStatus;
+import flussonic.watcher.sdk.domain.pojo.Quality;
 import flussonic.watcher.sdk.domain.pojo.Track;
 import flussonic.watcher.sdk.domain.pojo.UpdateProgressEvent;
 import flussonic.watcher.sdk.domain.utils.CalendarUtils;
@@ -50,6 +51,7 @@ import flussonic.watcher.sdk.presentation.core.listeners.FlussonicBufferingListe
 import flussonic.watcher.sdk.presentation.core.listeners.FlussonicCollapseExpandTimelineListener;
 import flussonic.watcher.sdk.presentation.core.listeners.FlussonicDownloadRequestListener;
 import flussonic.watcher.sdk.presentation.core.listeners.FlussonicPlayerSessionListener;
+import flussonic.watcher.sdk.presentation.core.listeners.FlussonicQualityListener;
 import flussonic.watcher.sdk.presentation.core.listeners.FlussonicUpdateProgressEventListener;
 import flussonic.watcher.sdk.presentation.timeline.animation.ToolbarAnimator;
 import flussonic.watcher.sdk.presentation.utils.DialogUtils;
@@ -60,7 +62,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class CameraActivity extends BaseActivity implements FlussonicCollapseExpandTimelineListener {
+public class CameraActivity extends BaseActivity implements FlussonicCollapseExpandTimelineListener, FlussonicQualityListener {
 
     private static final String SERVER = BuildConfig.SERVER;
 
@@ -191,7 +193,6 @@ public class CameraActivity extends BaseActivity implements FlussonicCollapseExp
         // allow download -- разрешить загрузку части архива
         flussonicWatcherView.setAllowDownload(Settings.allowDownload(this));
         flussonicWatcherView.setHideToolbarInPortrait(true);
-
         flussonicWatcherView.setStartPosition(startPosition);
 
         // Установка слушателя, чтобы запускать анимацию тулбара синхронно анимации таймлайна
@@ -199,10 +200,12 @@ public class CameraActivity extends BaseActivity implements FlussonicCollapseExp
         flussonicWatcherView.setToolbarHeight(toolbarHeight);
         flussonicWatcherView.disableAudio(true);
 
-        // Инициализация параметров подключения к камере
+        // Инициализация параметров подключения к камереS
         flussonicWatcherView.initialize(this);
         setUrl(false);
         flussonicWatcherView.enableTimelineMarkersV2(true);
+        flussonicWatcherView.setQuality(Quality.SD);
+        flussonicWatcherView.setQualityListener(this);
 
         // Примеры вызовов: см. onOptionsItemSelected, onLowMemory
 
@@ -598,5 +601,10 @@ public class CameraActivity extends BaseActivity implements FlussonicCollapseExp
     @Override
     public void hideToolbar(int animationDuration) {
         toolbar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onQualityChanged(@NonNull Quality quality) {
+        Timber.d("Quality changed: %s", quality);
     }
 }

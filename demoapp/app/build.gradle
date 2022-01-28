@@ -8,6 +8,7 @@ repositories {
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion BUILD_TOOLS_VERSION
+    ndkVersion rootProject.ext.ndkVersion
 
     applicationVariants.all { variant ->
         variant.outputs.all {
