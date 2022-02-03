@@ -29,7 +29,7 @@ android {
 // glideCompiler annotationProcessor needed for LibraryGlideModule integration
 annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
 
-implementation 'com.flussonic:watcher-sdk:2.7.0'
+implementation 'com.flussonic:watcher-sdk:2.7.1'
 ```
 
 ### Create stub GlideModule for enabling software decoding of mp4 thumbnails:
