@@ -53,12 +53,13 @@ ext {
     autoValueParcelVersion = '0.2.+'
     materialProgressVersion = '1.6.+'
     materialDatePickerVersion = '4.2.+'
-    glideVersion = '4.11.+'
+    glideVersion = '4.12.+'
     multidexVersion = "2.0.1"
 
     buildToolsVersion = BUILD_TOOLS_VERSION
     compileSdkVersion = Integer.parseInt(COMPILE_SDK_VERSION)
     targetSdkVersion = Integer.parseInt(TARGET_SDK_VERSION)
+    ndkVersion = NDK_VERSION
 
     libraries = [
             multidex                : "androidx.multidex:multidex:$multidexVersion",
