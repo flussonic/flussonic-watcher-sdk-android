@@ -81,6 +81,7 @@
                 android:layout_marginEnd="@dimen/fs_margin_quarter"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:visibility="gone"
+                android:tint="@color/fs_bottom_bar_icon"
                 tools:src="@drawable/fs_sd"
                 tools:visibility="visible"
                 android:layout_marginRight="@dimen/fs_margin_quarter" />
@@ -93,6 +94,7 @@
                 android:layout_marginEnd="@dimen/fs_margin_quarter"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/fs_ic_mute"
+                android:tint="@color/fs_bottom_bar_icon"
                 android:visibility="gone"
                 tools:visibility="visible"
                 android:layout_marginRight="@dimen/fs_margin_quarter" />

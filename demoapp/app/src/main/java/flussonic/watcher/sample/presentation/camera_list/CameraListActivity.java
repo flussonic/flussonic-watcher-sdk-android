@@ -1,26 +1,19 @@
 package flussonic.watcher.sample.presentation.camera_list;
 
-import android.icu.text.SimpleDateFormat;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -34,7 +27,6 @@ import flussonic.watcher.sample.data.network.dto.LoginRequestDto;
 import flussonic.watcher.sample.data.network.services.SampleNetworkProvider;
 import flussonic.watcher.sample.data.network.services.SampleNetworkService;
 import flussonic.watcher.sample.presentation.camera.CameraActivity;
-import flussonic.watcher.sample.presentation.camera.MosaicActivity;
 import flussonic.watcher.sample.presentation.core.BaseActivity;
 import flussonic.watcher.sample.presentation.core.Settings;
 import flussonic.watcher.sdk.data.network.mappers.CameraDtoToCameraMapper;
@@ -66,7 +58,7 @@ public class CameraListActivity extends BaseActivity
     private static final String KEY_SESSION = "KEY_SESSION";
     private static final String KEY_START_POSITION = "KEY_START_POSITION";
     private static final String KEY_START_PLAYING_FROM_START_POSITION = "KEY_START_PLAYING_FROM_START_POSITION";
-    private static final String KEY_USE_MOSAICS = "KEY_USE_MOSAICS";
+    private static final String KEY_ITEM_TYPE = "KEY_ITEM_TYPE";
     private static final String KEY_PREVIEW_UPDATING = "KEY_P_UPDATING";
 
     private static final String DATE_TIME_PICKER_SUFFIX = CameraListActivity.class.getName();
@@ -85,7 +77,7 @@ public class CameraListActivity extends BaseActivity
     private String session;
     private long startPosition;
     private boolean startPlayingFromStartPosition;
-    private boolean useMosaics;
+    private String itemType = "cameras";
     private boolean enableUpdating;
     private Bundle savedInstanceState;
     private LinearLayoutManager layoutManager;
@@ -102,10 +94,13 @@ public class CameraListActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         this.savedInstanceState = savedInstanceState;
         layoutManager = new LinearLayoutManager(this);
-        createCameras(savedInstanceState);
+        onSavedInstanceStateLoaded(savedInstanceState);
+        init();
     }
 
-    private void createCameras(Bundle savedInstanceState) {
+
+
+    private void init() {
         setContentView(R.layout.activity_camera_list);
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
@@ -114,55 +109,54 @@ public class CameraListActivity extends BaseActivity
         refreshLayout.setRefreshing(false);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new CameraAdapter(Collections.emptyList(), this);
+        switch(itemType) {
+            case "cameras":
+                adapter = new CameraAdapter(Collections.emptyList(), this);
+                break;
+            case "mosaics":
+                adapter = new CameraMosaicAdapter(Collections.emptyList(), session, this, this);
+                break;
+            case "streams":
+                adapter = new CameraMosaicAdapter(Collections.emptyList(), this, this);
+                break;
+        }
         recyclerView.setAdapter(adapter);
         setupToolbar();
+        DialogUtils.hideDateTimePicker(getSupportFragmentManager(), DATE_TIME_PICKER_SUFFIX);
+    }
+
+    private void onSavedInstanceStateLoaded(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             cameras = savedInstanceState.getParcelableArrayList(KEY_CAMERAS);
             session = savedInstanceState.getString(KEY_SESSION);
             startPosition = savedInstanceState.getLong(KEY_START_POSITION);
             startPlayingFromStartPosition = savedInstanceState.getBoolean(KEY_START_PLAYING_FROM_START_POSITION);
-            useMosaics = savedInstanceState.getBoolean(KEY_USE_MOSAICS);
-
+            itemType = savedInstanceState.getString(KEY_ITEM_TYPE, "cameras");
         }
-        DialogUtils.hideDateTimePicker(getSupportFragmentManager(), DATE_TIME_PICKER_SUFFIX);
     }
 
-    private void createMosaics() {
-        setContentView(R.layout.activity_camera_list);
-        progressBar = findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.GONE);
-        refreshLayout = findViewById(R.id.refresh_layout);
-        refreshLayout.setOnRefreshListener(this);
-        refreshLayout.setRefreshing(false);
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new CameraMosaicAdapter(Collections.emptyList(), session, this, this);
-        recyclerView.setAdapter(adapter);
-        setupToolbar();
-        if (savedInstanceState != null) {
-            cameras = savedInstanceState.getParcelableArrayList(KEY_CAMERAS);
-            session = savedInstanceState.getString(KEY_SESSION);
-            startPosition = savedInstanceState.getLong(KEY_START_POSITION);
-            startPlayingFromStartPosition = savedInstanceState.getBoolean(KEY_START_PLAYING_FROM_START_POSITION);
-            useMosaics = savedInstanceState.getBoolean(KEY_USE_MOSAICS);
-
-        }
-        DialogUtils.hideDateTimePicker(getSupportFragmentManager(), DATE_TIME_PICKER_SUFFIX);
-    }
-
-    private void toggleCameraTypes(boolean useMosaics) {
+    private void toggleCameraTypes(String cameraTypes) {
         if (recyclerView != null) {
           // workaround for clearing Adapter memory. see https://stackoverflow.com/questions/35520946/leak-canary-recyclerview-leaking-madapter
             recyclerView.setAdapter(null);
         }
         layoutManager = new LinearLayoutManager(this);
-        if (useMosaics) {
-            createMosaics();
-            adapter.setItems(cameras.subList(0,5));
-        } else {
-            createCameras(savedInstanceState);
-            adapter.setItems(cameras);
+        switch(cameraTypes) {
+            case "cameras":
+                itemType = cameraTypes;
+                init();
+                adapter.setItems(cameras);
+                break;
+            case "mosaics":
+                itemType = cameraTypes;
+                init();
+                adapter.setItems(cameras.subList(0,5));
+                break;
+            case "streams":
+                itemType = cameraTypes;
+                init();
+                adapter.setItems(cameras.subList(0,3));
+                break;
         }
     }
 
@@ -173,7 +167,7 @@ public class CameraListActivity extends BaseActivity
         outState.putSerializable(KEY_SESSION, session);
         outState.putLong(KEY_START_POSITION, startPosition);
         outState.putBoolean(KEY_START_PLAYING_FROM_START_POSITION, startPlayingFromStartPosition);
-        outState.putBoolean(KEY_USE_MOSAICS, useMosaics);
+        outState.putSerializable(KEY_ITEM_TYPE, itemType);
         outState.putBoolean(KEY_PREVIEW_UPDATING, enableUpdating);
         this.savedInstanceState = outState;
     }
@@ -200,8 +194,12 @@ public class CameraListActivity extends BaseActivity
         item = menu.findItem(R.id.allow_download);
         boolean allowDownload = Settings.allowDownload(this);
         item.setChecked(allowDownload);
+        item = menu.findItem(R.id.use_cameras);
+        item.setChecked(itemType.contains("cameras"));
         item = menu.findItem(R.id.use_mosaiks);
-        item.setChecked(useMosaics);
+        item.setChecked(itemType.contains("mosaics"));
+        item = menu.findItem(R.id.use_streams);
+        item.setChecked(itemType.contains("streams"));
         item = menu.findItem(R.id.preview_updating);
         item.setChecked(enableUpdating);
         return super.onPrepareOptionsMenu(menu);
@@ -221,9 +219,17 @@ public class CameraListActivity extends BaseActivity
             case R.id.start_playing_from_start_position:
                 startPlayingFromStartPosition = !startPlayingFromStartPosition;
                 return true;
+            case R.id.use_cameras:
+                itemType = "cameras";
+                toggleCameraTypes(itemType);
+                return true;
             case R.id.use_mosaiks:
-                useMosaics = !useMosaics;
-                toggleCameraTypes(useMosaics);
+                itemType = "mosaics";
+                toggleCameraTypes(itemType);
+                return true;
+            case R.id.use_streams:
+                itemType = "streams";
+                toggleCameraTypes(itemType);
                 return true;
             case R.id.preview_updating:
                 enableUpdating = !enableUpdating;
@@ -269,7 +275,7 @@ public class CameraListActivity extends BaseActivity
 
                     });
         } else {
-            toggleCameraTypes(useMosaics);
+            toggleCameraTypes(itemType);
         }
         togglePreviewUpdating(enableUpdating);
     }
@@ -296,15 +302,10 @@ public class CameraListActivity extends BaseActivity
 
     @Override
     public void onCameraClick(@NonNull Camera camera) {
-        Timber.d("onCameraClick called with useMasaics %b", useMosaics);
-//        if (useMosaics) {
-//            startActivity(MosaicActivity.getStartIntent(this,
-//                    camera, session, cameras,0));
-//        } else {
+        Timber.d("onCameraClick called with useMasaics %s", itemType);
             startActivity(CameraActivity.getStartIntent(this,
                     camera, session, cameras,
                     startPlayingFromStartPosition ? startPosition : 0));
-//        }
     }
 
     private void startUpdatePreviewTimers() {
@@ -350,7 +351,7 @@ public class CameraListActivity extends BaseActivity
                 .doOnSuccess(this::setCameras)
                 .subscribe(cameras -> {
                   this.setCameras(cameras);
-                  toggleCameraTypes(this.useMosaics);
+                  toggleCameraTypes(this.itemType);
                 }, this::showError);
     }
 
