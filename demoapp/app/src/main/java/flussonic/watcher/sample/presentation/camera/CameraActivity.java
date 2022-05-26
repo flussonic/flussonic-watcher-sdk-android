@@ -258,7 +258,10 @@ public class CameraActivity extends BaseActivity implements FlussonicCollapseExp
                 }
                 String tracksString = sb.toString();
                 Track currentTrack = flussonicWatcherView.getCurrentTrack();
-                String videoTrack = currentTrack == null ? "NO" : currentTrack.trackId();
+                String videoTrack = "NO";
+                if (currentTrack != null){
+                 videoTrack = currentTrack.trackId();
+                }
                 String audioDisabled = event.audioDisabled() ? "Audio OFF" : "Audio ON";
 
                 textViewUtc.setText(String.valueOf(event.currentUtcInSeconds()));
