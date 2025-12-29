@@ -22,7 +22,7 @@ Add the dependency to your `build.gradle`:
 
 ```gradle
 dependencies {
-    implementation 'com.flussonic:watcher-sdk:2.8.9'
+    implementation 'com.flussonic:watcher-sdk:2.9.0'
 }
 ```
 
