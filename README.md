@@ -22,7 +22,7 @@ Add the dependency to your `build.gradle`:
 
 ```gradle
 dependencies {
-    implementation 'com.flussonic:watcher-sdk:2.9.2'
+    implementation 'com.flussonic:watcher-sdk:2.9.3'
 }
 ```
 
@@ -30,7 +30,7 @@ With Kotlin DSL (`build.gradle.kts`):
 
 ```kotlin
 dependencies {
-    implementation("com.flussonic:watcher-sdk:2.9.2")
+    implementation("com.flussonic:watcher-sdk:2.9.3")
 }
 ```
 
